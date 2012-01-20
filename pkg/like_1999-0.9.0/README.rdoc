@@ -9,7 +9,7 @@ Uses natural language to format time and dates.
 == SYNOPSIS:
 
 Uses a natural format to specify a date/time format, by using a reference date/time.
-This time is Sunday, December 31 1999, 23:59 UTC, or Sun 12-31-99 11:59 PM.
+This canonical time is Sunday, December 31 1999, 23:59:00 UTC, or Sun 12-31-99 11:59:00 PM.
 Capitalization of months/weekdays will match that in template. Encoding should be UTF-8.
 Capitalization of accented letters may not work.
 The following subset of strftime is supported:
@@ -75,9 +75,6 @@ Examples for German:
     t.like("Sonntag 31 DEZEMBER 23:59")
     t.like("So 31 dez")
 
-
-The canonical, easy-to-remember point in time that this gem uses, is 23:59:00 on Sunday 31 december 1999.
-For the British/American notation, use 11:59:00 PM. The timezone is UTC. The day of the year is 366.
 
 == INSTALL:
 
