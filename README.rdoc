@@ -8,25 +8,77 @@ Uses natural language to format time and dates.
 
 == SYNOPSIS:
 
+Uses a natural format to specify a date/time format, by using a reference date/time.
+This time is Sunday, December 31 1999, 23:59 UTC, or Sun 12-31-99 11:59 PM.
+Capitalization of months/weekdays will match that in template. Encoding should be UTF-8.
+Capitalization of accented letters may not work.
+The following subset of strftime is supported:
+- Year long (1999)
+- Year short (99)
+- Month long (december)
+- Month short (dec)
+- Month numeric (12)
+- Yearday (366)
+- Date (31)
+- Weekday long (Sunday)
+- Weekday short (Sun)
+- Weekday very short (Su)
+- Hour, 24-hour clock  (23)
+- Hour, 12-hour clock  (11)
+- AM/PM (pm)
+- Minutes (59)
+- Seconds (00)
+- Timezone (UTC)
+
+Unsupported (but you may use strftime % codes)
+- milliseconds
+- weekday (numeric)
+- week number
+
+
+Supported languages are: :en (english), :nl (Dutch), :fr (French), :de (German).
+Spanish(:es), Italian(:it) and Swedish(:se) are not yet fully supported.
+The default language can be set using Time.set_default_template_language. 
+Examples for English:
+
+    require 'like_1999'
+
+    Time.set_default_template_language(:en)
+    t = Time.now
+    t.like("Sunday DECEMBER 31, 11:59 PM")
+    t.like("Sun 31 dec")
+    t.like("12-31-99")
+    t.like("Next sunday at 11 o'clock")
+    t.like("Sun 12-31-99 11:59 PM UTC")
+
+Examples for Dutch:
+
+    Time.set_default_template_language(:nl)
+    t = Time.now
+    t.like("Zondag 31 DECEMBER 23:59")
+    t.like("Zo 31 dec")
+    t.like("31-12-99")
+    t.like("Zondag om 23 uur 59")
+    t.like("December, 1999")
+
+Examples for French:
+
+    Time.set_default_template_language(:fr)
+    t = Time.now
+    t.like("Dimanche 31 DÉCEMBRE 23:59")
+    t.like("Di 31 déc")
+
+Examples for German:
+
+    Time.set_default_template_language(:de)
+    t = Time.now
+    t.like("Sonntag 31 DEZEMBER 23:59")
+    t.like("So 31 dez")
+
+
 The canonical, easy-to-remember point in time that this gem uses, is 23:59:00 on Sunday 31 december 1999.
 For the British/American notation, use 11:59:00 PM. The timezone is UTC. The day of the year is 366.
 
-To set the default language, use:
-    Time.set_default_template_language(lang)
-    
-Supported languages are: :en (english), :nl (Dutch), :fr (French), :de (German).
-Spanish, Italian and Swedish are not yet fully supported.
-
-    require 'like_1999'
-    
-    Time.now.like("The current time is 23:59:00; the date is Dec 31 1999, or 12/31/99. It is a Sunday")
-    => "The current time is 01:30:48; the date is Dec 20 2012, or 01/20/12. It is a Sunday"
-    
-`like` takes an optional second language parameter
-
-    Time.now.like("Vandaag is het zondag", :nl)
-    => "Vandaag is het vrijdag"
-    
 == INSTALL:
 
 gem install like_1999
