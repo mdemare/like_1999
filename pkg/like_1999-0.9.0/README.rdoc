@@ -1,0 +1,58 @@
+= like_1999
+
+* http://github.com/mdemare/like_1999
+
+== DESCRIPTION:
+
+Uses natural language to format time and dates.
+
+== SYNOPSIS:
+
+The canonical, easy-to-remember point in time that this gem uses, is 23:59:00 on Sunday 31 december 1999.
+For the British/American notation, use 11:59:00 PM. The timezone is UTC. The day of the year is 366.
+
+To set the default language, use:
+    Time.set_default_template_language(lang)
+    
+Supported languages are: :en (english), :nl (Dutch), :fr (French), :de (German).
+Spanish, Italian and Swedish are not yet fully supported.
+
+    require 'like_1999'
+    
+    Time.now.like("The current time is 23:59:00; the date is Dec 31 1999, or 12/31/99. It is a Sunday")
+    => "The current time is 01:30:48; the date is Dec 20 2012, or 01/20/12. It is a Sunday"
+    
+`like` takes an optional second language parameter
+
+    Time.now.like("Vandaag is het zondag", :nl)
+    => "Vandaag is het vrijdag"
+    
+== INSTALL:
+
+gem install like_1999
+
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2012 Michiel de Mare
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
