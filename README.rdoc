@@ -4,12 +4,20 @@
 
 == DESCRIPTION:
 
-Uses natural language to format time and dates.
+Specify date/time formats via dates and times, instead of opaque strftime codes.
+
+    Time.now.like('31 december in the year 1999')
+    => "17 december in the year 2018"
+
+Note that strftime does not handle localization. To handle localization, you should
+put the format string for various languages in a locale yaml file, and use something like
+`Time.now.like(t('datetime.long')) to convert the datetimes.
 
 == SYNOPSIS:
 
 Uses a natural format to specify a date/time format, by using a reference date/time.
-This canonical time is Sunday, December 31 1999, 23:59:00 UTC, or Sun 12-31-99 11:59:00 PM.
+This canonical, easy to remember timestamp is Sunday, December 31 1999, 23:59:00 UTC, or Sun 12-31-99 11:59:00 PM.
+Also known as the last second of the previous century.
 Capitalization of months/weekdays will match that in template. Encoding should be UTF-8.
 Capitalization of accented letters may not work.
 The following subset of strftime is supported:
@@ -35,7 +43,10 @@ Unsupported (but you may use strftime % codes)
 - weekday (numeric)
 - week number
 
+[List of strftime codes](https://ruby-doc.org/core-2.5.3/Time.html#method-i-strftime)
 
+It's possible to specify the format string in the following languages, although we recommend 
+you just use English.
 Supported languages are: :en (english), :nl (Dutch), :fr (French), :de (German).
 Spanish(:es), Italian(:it) and Swedish(:se) are not yet fully supported.
 The default language can be set using Time.set_default_template_language. 
@@ -43,14 +54,24 @@ Examples for English:
 
     require 'like_1999'
 
-    Time.set_default_template_language(:en)
     t = Time.now
+    => 2018-12-17 11:09:11 +0100
+    
     t.like("Sunday DECEMBER 31, 11:59 PM")
-    t.like("Sun 31 dec")
-    t.like("12-31-99")
-    t.like("Next sunday at 11 o'clock")
-    t.like("Sun 12-31-99 11:59 PM UTC")
+    => "Monday DECEMBER 17, 11:09 AM"
 
+    t.like("Sun 31 dec")
+    => "Mon 17 dec"
+    
+    t.like("12-31-99")    
+    => "12-17-18"
+    
+    t.like("Next sunday at 11 o'clock")    
+    => "Next monday at 11 o'clock"
+    
+    t.like("Sun 12-31-99 11:59 PM UTC")
+    => "Mon 12-17-18 11:09 AM CET"
+    
 Examples for Dutch:
 
     Time.set_default_template_language(:nl)
@@ -85,7 +106,7 @@ gem install like_1999
 
 (The MIT License)
 
-Copyright (c) 2012 Michiel de Mare
+Copyright (c) 2012-2018 Michiel de Mare
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
